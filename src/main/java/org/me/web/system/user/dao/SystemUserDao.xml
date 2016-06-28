@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="org.me.web.system.user.dao.ISystemUserDao">
+	
+	<select id="getList" parameterType="org.me.web.system.user.entity.SystemUser" resultType="org.me.web.system.user.entity.SystemUser">
+		select
+			<include refid="base_select" />
+		from systemUser where 1=1
+			<include refid="base_where"></include>
+	</select>
+	
+
+	<insert id="insert" parameterType="org.me.web.system.user.entity.SystemUser">
+		insert into systemUser(strUserId,strPassword)
+			values(#{strUserId},#{strPassword})
+	</insert>
+	
+	<select id="getListSize" parameterType="org.me.web.system.user.entity.SystemUser" resultType="Integer">
+		select count(1) from systemUser
+		<where>
+			<if test="strUserId !=null and strUserId != ''">
+				strUserId=#{strUserId}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 登录 -->
+	<select id="get" parameterType="String" resultType="org.me.web.system.user.entity.SystemUser">
+		select 
+			<include refid="base_select" />
+		from systemUser where strUserId=#{strUserId}
+	</select>
+	
+	<sql id="base_select">
+		strUserId,strPassword,strName,nSex,strMobile,strPhone,strEmail,strQQ,strWeChar,dtBirthday,strAddress,strHeadURL,nState,strDeptId,dtCreateTime,dtUpdateTime
+	</sql>
+	
+	<sql id="base_where">
+		<if test="strUserId != null">
+			and strUserId = #{strUserId}
+		</if>
+		<if test="strPassword != null">
+			and strPassword = #{strPassword}
+		</if>
+		<if test="strName != null">
+			and strName like CONCAT('%',#{strName},'%')
+		</if>
+		<if test="nSex != null">
+			and nSex = #{nSex}
+		</if>
+		<if test="strMobile != null">
+			and strMobile = #{strMobile}
+		</if>
+		<if test="strPhone != null">
+			and strPhone = #{strPhone}
+		</if>
+		<if test="strEmail != null">
+			and strEmail = #{strEmail}
+		</if>
+		<if test="strQQ != null">
+			and strQQ = #{strQQ}
+		</if>
+		<if test="strWeChar != null">
+			and strWeChar = #{strWeChar}
+		</if>
+		<if test="nState != null">
+			and nState = #{nState}
+		</if>
+		<if test="strDeptId != null">
+			and strDeptId = #{strDeptId}
+		</if>
+	</sql>
+	
+	<sql id="order">
+		<choose>
+			<when test="order != null and order != ''">
+				order by #{order}
+			</when>
+			<otherwise>
+				order by dtCreateTime desc
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<sql id="limit">
+		<choose>
+			<when test="start != null and start != '' and limit != null and limit != ''">
+				limit #{start},#{limit}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</sql>
+</mapper>

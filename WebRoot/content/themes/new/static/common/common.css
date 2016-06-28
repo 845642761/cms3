@@ -1,0 +1,32 @@
+.button{
+	height: 24px;
+	margin: 0 5px 0 0;
+	border:1px solid #ddddee;
+	background:#F8F8F8;
+	_display: inline;
+	float: left;
+	-moz-user-select:none;
+}
+
+.button b{
+	cursor:pointer;
+	white-space: nowrap;
+	color: #666;
+	font-weight: normal;
+	height: 24px;
+	line-height: 24px;
+	padding: 0 7px 0 5px;
+	display:inline-block;
+	+zoom: 1;
+}
+
+.button:hover {
+	border:1px solid #ddddee;
+	background:#55CCC8;
+	color:#FFF;
+}
+
+.button:hover b {
+	color: #FFF;
+	background:#55CCC8;
+}

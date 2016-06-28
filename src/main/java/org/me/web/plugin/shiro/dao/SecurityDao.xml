@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="org.me.web.plugin.shiro.dao.ISecurityDao">
+	<!-- 根据用户Id查找其角色 -->
+	<select id="getRoles" parameterType="String" resultType="org.me.web.plugin.shiro.entity.UserRole">
+		select * from userRole where strLoginId = #{strLoginId}
+	</select>
+	
+	<!-- 根据角色Id查找其权限-->
+	<select id="getPermissionsByRoleId" parameterType="String" resultType="org.me.web.plugin.shiro.entity.Permission">
+		SELECT
+			p.*
+		FROM
+			rolepermission rp
+		INNER JOIN permission p 
+		ON 
+			rp.strPermissionId = p.strId
+		AND
+			rp.strRoleId = #{roleId}
+		AND
+			p.nState = 0
+	</select>
+	
+	<select id="getPermissionsList" parameterType="Map" resultType="org.me.web.plugin.shiro.entity.Permission">
+		SELECT
+			p.*
+		FROM
+			rolepermission rp
+		INNER JOIN permission p 
+		ON 
+			rp.strPermissionId = p.strId
+		AND
+			rp.strRoleId = #{roleId}
+		<if test="nState != null">
+			and p.nState = #{nState}
+		</if>
+		<if test="strPid != null and strPid != ''">
+			and p.strPid=#{strPid}
+		</if>
+		<if test="strName != null and strName != ''">
+			and p.strName like CONCAT('%',#{strName},'%')
+		</if>
+		<if test="nType != null">
+			and p.nType = #{nType}
+		</if>
+		<if test="nHasChild != null">
+			and p.nHasChild = #{nHasChild}
+		</if>
+		<include refid="order" />
+		<include refid="limit" />
+	</select>
+	
+	<sql id="Base_select">
+		strId,strPid,strName,strPermission,strDescription,nState,nHasChild,dtCreateTime
+	</sql>
+	
+	<sql id="Base_selective_set">
+		<if test="strPid != null and strPid != ''">
+			strPid = #{strPid},
+		</if>
+		<if test="strName != null and strName != ''">
+			strName = #{strName},
+		</if>
+		<if test="strPermission != null and strPermission != ''">
+			strPermission = #{strPermission},
+		</if>
+		<if test="strDescription != null and strDescription != ''">
+			strDescription = #{strDescription},
+		</if>
+		<if test="nState != null">
+			nState = #{nState},
+		</if>
+		<if test="nHasChild != null">
+			nHasChild = #{nHasChild},
+		</if>
+		<if test="dtCreateTime != null and dtCreateTime != ''">
+			dtCreateTime = #{dtCreateTime},
+		</if>
+	</sql>
+	
+	<sql id="Base_selective_and">
+		<if test="strPid != null and strPid != ''">
+			AND strPid = #{strPid}
+		</if>
+		<if test="strName != null and strName != ''">
+			AND strName = #{strName}
+		</if>
+		<if test="strPermission != null and strPermission != ''">
+			AND strPermission = #{strPermission}
+		</if>
+		<if test="strDescription != null and strDescription != ''">
+			AND strDescription = #{strDescription}
+		</if>
+		<if test="nState != null">
+			AND nState = #{nState}
+		</if>
+		<if test="nHasChild != null">
+			AND nHasChild = #{nHasChild}
+		</if>
+		<if test="dtCreateTime != null and dtCreateTime != ''">
+			AND dtCreateTime = #{dtCreateTime}
+		</if>
+	</sql>
+	
+	<sql id="Base_selective_database">
+		<if test="strId != null and strId != ''">
+			#{strId},
+		</if>
+		<if test="strPid != null and strPid != ''">
+			#{strPid},
+		</if>
+		<if test="strName != null and strName != ''">
+			#{strName},
+		</if>
+		<if test="strPermission != null and strPermission != ''">
+			#{strPermission},
+		</if>
+		<if test="strDescription != null and strDescription != ''">
+			#{strDescription},
+		</if>
+		<if test="nState != null">
+			#{nState},
+		</if>
+		<if test="nHasChild != null">
+			#{nHasChild},
+		</if>
+		<if test="dtCreateTime != null and dtCreateTime != ''">
+			#{dtCreateTime},
+		</if>
+	</sql>
+	
+	<sql id="Base_selective_data">
+		<if test="strId != null and strId != ''">
+			strId,
+		</if>
+		<if test="strPid != null and strPid != ''">
+			strPid,
+		</if>
+		<if test="strName != null and strName != ''">
+			strName,
+		</if>
+		<if test="strPermission != null and strPermission != ''">
+			strPermission,
+		</if>
+		<if test="strDescription != null and strDescription != ''">
+			strDescription,
+		</if>
+		<if test="nState != null">
+			nState,
+		</if>
+		<if test="nHasChild != null">
+			nHasChild,
+		</if>
+		<if test="dtCreateTime != null and dtCreateTime != ''">
+			dtCreateTime,
+		</if>
+	</sql>
+	
+	<sql id="order">
+		<choose>
+			<when test="order != null and order != ''">
+				order by #{order}
+			</when>
+			<otherwise>
+				order by dtCreateTime asc
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<sql id="limit">
+		<choose>
+			<when test="start != null and start != '' and limit != null and limit != ''">
+				limit #{start},#{limit}
+			</when>
+			<otherwise>
+				
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<insert id="insert" parameterType="org.me.web.plugin.shiro.entity.Permission">
+		INSERT INTO permission(
+			<trim prefix="(" suffix=")" suffixOverrides="," >
+				<include refid="Base_selective_data" />
+			</trim>
+		) VALUES(
+			<trim prefix="(" suffix=")" suffixOverrides="," >
+				<include refid="Base_selective_database" />
+			</trim>
+		)
+	</insert>
+	
+	<delete id="del" parameterType="String">
+		DELETE FROM permission WHERE strId = #{strId}
+	</delete>
+	
+	<select id="get" parameterType="String" resultType="org.me.web.plugin.shiro.entity.Permission">
+		SELECT 
+			<include refid="Base_select" />
+		FROM permission WHERE strId = #{strId}
+	</select>
+	
+	<update id="update" parameterType="org.me.web.plugin.shiro.entity.Permission">
+		UPDATE permission
+		<set>
+			<include refid="Base_selective_set" />
+		</set>
+		 WHERE strId = #{strId}
+	</update>
+	
+	<select id="getList" parameterType="org.me.web.plugin.shiro.entity.Permission" resultType="org.me.web.plugin.shiro.entity.Permission">
+		SELECT 
+			<include refid="Base_select" />
+		FROM permission WHERE 1=1 
+			<include refid="Base_selective_and" />
+		<include refid="order" />
+		<include refid="limit" />
+	</select>
+	
+	<select id="getListSize" parameterType="org.me.web.plugin.shiro.entity.Permission" resultType="Integer">
+		SELECT 
+			COUNT(1) 
+		FROM permission WHERE 1=1 
+			<include refid="Base_selective_and" />
+	</select>
+</mapper>

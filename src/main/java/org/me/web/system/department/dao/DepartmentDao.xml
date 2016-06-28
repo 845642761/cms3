@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="org.me.web.system.department.dao.IDepartmentDao">
+
+	<insert id="insert" parameterType="org.me.web.system.department.entity.Department">
+		insert into department
+			<trim prefix="(" suffix=")" suffixOverrides="," >
+					<include refid="base_item" />
+			</trim>
+		values
+			<trim prefix="(" suffix=")" suffixOverrides="," >
+					<include refid="base_data" />
+			</trim>
+	</insert>
+	
+	<delete id="delById" parameterType="String">
+		update department set nState = -1 where strId = #{strId}
+	</delete>
+	
+	<select id="getById" parameterType="String" resultType="org.me.web.system.department.entity.Department">
+		select 
+			<include refid="base_select" />
+		from department where strId = #{strId} and nState = 0
+	</select>
+	
+	<update id="update" parameterType="org.me.web.system.department.entity.Department">
+		update department 
+			<set>
+				<include refid="base_set" />
+			</set>
+		where strId = #{strId}
+	</update>
+	
+	<select id="getList" parameterType="org.me.web.system.department.entity.Department" resultType="org.me.web.system.department.entity.Department">
+		select 
+			<include refid="base_select" />
+		from department
+		<where>
+			nState = 0 
+			<include refid="base_where" />
+		</where>
+		<include refid="order" />
+		<include refid="limit" />
+	</select>
+	
+	<select id="getListSize" parameterType="org.me.web.system.department.entity.Department" resultType="Integer">
+		select count(1) from department
+		<where>
+			nState = 0 
+			<include refid="base_where" />
+		</where>
+	</select>
+	
+	<delete id="delByLevel">
+		update department set nState = -1 where strLevel like CONCAT(#{strLevel},'%') and nState = 0
+	</delete>
+	
+	<select id="getMaxLevel" resultType="String">
+		select max(strLevel) from department where strLevel like CONCAT(#{strLevel},'%') and nState = 0
+	</select>
+	
+	<sql id="base_select">
+		strId,strPid,strName,strDescription,strLevel,nState,nChild,dtCreateTime
+	</sql>
+	
+	<sql id="base_item">
+		<if test="strId != null">
+			strId,
+		</if>
+		<if test="strPid != null">
+			strPid,
+		</if>
+		<if test="strName != null">
+			strName,
+		</if>
+		<if test="strDescription != null">
+			strDescription,
+		</if>
+		<if test="strLevel != null">
+			strLevel,
+		</if>
+		<if test="nState != null">
+			nState,
+		</if>
+		<if test="nChild != null">
+			nChild,
+		</if>
+		<if test="dtCreateTime != null">
+			dtCreateTime,
+		</if>
+	</sql>
+	
+	<sql id="base_data">
+		<if test="strId != null">
+			#{strId},
+		</if>
+		<if test="strPid != null">
+			#{strPid},
+		</if>
+		<if test="strName != null">
+			#{strName},
+		</if>
+		<if test="strDescription != null">
+			#{strDescription},
+		</if>
+		<if test="strLevel != null">
+			#{strLevel},
+		</if>
+		<if test="nState != null">
+			#{nState},
+		</if>
+		<if test="nChild != null">
+			#{nChild},
+		</if>
+		<if test="dtCreateTime != null">
+			now(),
+		</if>
+	</sql>
+	
+	<sql id="base_set">
+		<if test="strPid != null">
+			strPid = #{strPid},
+		</if>
+		<if test="strName != null">
+			strName = #{strName},
+		</if>
+		<if test="strDescription != null">
+			strDescription = #{strDescription},
+		</if>
+		<if test="strLevel != null">
+			strLevel = #{strLevel},
+		</if>
+		<if test="nChild != null">
+			nChild = #{nChild},
+		</if>
+		<if test="nState != null">
+			nState = #{nState},
+		</if>
+	</sql>
+	
+	<sql id="base_where">
+		<if test="strId != null">
+			and strId = #{strId}
+		</if>
+		<if test="strPid != null">
+			and strPid = #{strPid}
+		</if>
+		<if test="strName != null">
+			and strName like CONCAT('%',#{strName},'%')
+		</if>
+		<if test="strDescription != null">
+			and strDescription = #{strDescription}
+		</if>
+		<if test="strLevel != null">
+			and strLevel = #{strLevel}
+		</if>
+		<if test="nChild != null">
+			and nChild = #{nChild}
+		</if>
+		<if test="nState != null">
+			and nState = #{nState}
+		</if>
+	</sql>
+	
+	<sql id="order">
+		<choose>
+			<when test="order != null and order != ''">
+				order by #{order}
+			</when>
+			<otherwise>
+				order by dtCreateTime desc
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<sql id="limit">
+		<choose>
+			<when test="start != null and start != '' and limit != null and limit != ''">
+				limit #{start},#{limit}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</sql>
+</mapper>

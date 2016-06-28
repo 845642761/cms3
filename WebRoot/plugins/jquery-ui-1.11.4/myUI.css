@@ -1,0 +1,67 @@
+.ui-widget-header {
+	border: 1px solid #038586;
+	background: #00a4a5 repeat-x;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+.ui-dialog-title{
+	color: #FFFFFF;
+}
+
+.ui-widget{
+	font-size: 16px;
+}
+
+.ui-widget-header{
+	font-weight: normal;
+}
+
+.ui-dialog{
+	padding: 0px;
+}
+
+/**
+ * 日历插件
+ */
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
+	color: #038586;
+}
+
+.ui-datepicker {
+    width: 16em;
+    border: 1px solid #b4b4b4;
+}
+
+.ui-datepicker-calendar td {
+    border: 1px solid #c8cac9;
+}
+
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button{
+	font-family: "微软雅黑","宋体",Arial;
+	font-size: 16px;
+}
+
+.ui-priority-primary, .ui-widget-content .ui-priority-primary, .ui-widget-header .ui-priority-primary{
+	font-weight: normal;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+	font-weight: normal;
+}
+
+.ui-priority-secondary, .ui-widget-content .ui-priority-secondary, .ui-widget-header .ui-priority-secondary{
+	opacity: 10000;
+	filter:Alpha(Opacity=10000);
+}
+
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus {
+	border: 1px solid #038586;
+	background: #038586 url("images/ui-bg_glass_100_fdf5ce_1x400.png") 50% 50% repeat-x;
+	color: #038586;
+	outline: none;
+}
