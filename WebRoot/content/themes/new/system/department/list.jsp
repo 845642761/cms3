@@ -145,7 +145,7 @@
 		if (nodes.length>0) {
 			ztree.reAsyncChildNodes(nodes[0].getParentNode(), "refresh");
 		}
-	}
+	};
 	
 	$(document).ready(function(){
 		ztree = $.fn.zTree.init($("#tree"), setting);
