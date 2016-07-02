@@ -7,13 +7,13 @@ CREATE TABLE `systemUser`(
 	strPassword						VARCHAR(32)		NOT NULL,											-- 密码
 	strName							VARCHAR(30)		NOT NULL,											-- 姓名
 	nSex							TINYINT			NOT NULL DEFAULT 0,									-- 性别, 0-未填写,1-男,2-女
-	strMobile						VARCHAR(20)		NOT NULL,											-- 手机号
+	strMobile						VARCHAR(20),														-- 手机号
 	strPhone						VARCHAR(20),														-- 电话
 	strEmail						VARCHAR(60),														-- 邮箱
 	strQQ							VARCHAR(20),														-- QQ
 	strWeChar						VARCHAR(20),														-- 微信
-	dtBirthday						DATETIME		NOT NULL,											-- 出生日期:yyyy-mm-dd HH:mm:ss
-	strAddress						VARCHAR(100)	NOT NULL,											-- 地址
+	dtBirthday						DATETIME,															-- 出生日期:yyyy-mm-dd HH:mm:ss
+	strAddress						VARCHAR(100),														-- 地址
 	strHeadURL						VARCHAR(300),														-- 头像
 	nState							TINYINT			NOT NULL DEFAULT 0,									-- 状态,0-待审核,1-正常,-1-禁用
 	strDeptId						VARCHAR(32)		NOT NULL,											-- 所属部门ID

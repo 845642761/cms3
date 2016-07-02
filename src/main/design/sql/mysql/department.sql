@@ -16,25 +16,3 @@ CREATE TABLE `department`(
 )
 ENGINE=INNODB
 DEFAULT CHARACTER SET=utf8;
-
-
--- 初始化数据
-INSERT INTO `department` (
-	`strId`,
-	`strPid`,
-	`strName`,
-	`strDescription`,
-	`nState`,
-	`dtCreateTime`,
-	`nChild`,
-	`strLevel`
-)VALUES(
-		'1',
-		'0',
-		'组织机构',
-		'组织机构',
-		'0',
-		now(),
-		'0',
-		'001'
-);
