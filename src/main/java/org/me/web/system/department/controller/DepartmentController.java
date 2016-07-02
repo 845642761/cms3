@@ -28,7 +28,7 @@ public class DepartmentController extends BaseController {
 	
 	@RequestMapping("list")
 	public ModelAndView list() {
-		return new ModelAndView("/system/department/list");
+		return new ModelAndView("/system/department/deptList");
 	}
 	
 	/**
@@ -61,7 +61,7 @@ public class DepartmentController extends BaseController {
 	 */
 	@RequestMapping("toDetail")
 	public ModelAndView toDetail(String id) {
-		ModelAndView mav = new ModelAndView("/system/department/edit");
+		ModelAndView mav = new ModelAndView("/system/department/deptEdit");
 		try {
 			Department dept = departmentService.getById(id);
 			mav.addObject("department", dept);
@@ -113,7 +113,7 @@ public class DepartmentController extends BaseController {
 	
 	@RequestMapping("add")
 	public ModelAndView add(String strPid) {
-		ModelAndView mav = new ModelAndView("/system/department/add");
+		ModelAndView mav = new ModelAndView("/system/department/deptAdd");
 		mav.addObject("strPid", strPid);
 		return mav;
 	}
