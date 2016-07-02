@@ -1,3 +1,3 @@
 eclipse.preferences.version=1
-validator.Checked=WebRoot/plugins/zTreeV3.5.19/jquery.ztree.all-3.5.min.js,WebRoot/plugins/jquery-ui-1.11.4/jquery-ui-timepicker-addon.min.js,WebRoot/plugins/jquery-validate-1.13.1/jquery.validate.min.js,WebRoot/content/themes/new/system/department/list.jsp,WebRoot/plugins/jquery-ui-1.11.4/jquery-ui.min.js,WebRoot/content/themes/new/system/department/edit.jsp,WebRoot/plugins/jquery-1.11.3.min.js,WebRoot/content/themes/new/system/core/main.jsp
+validator.Checked=WebRoot/plugins/zTreeV3.5.19/jquery.ztree.all-3.5.min.js,WebRoot/plugins/jquery-ui-1.11.4/jquery-ui-timepicker-addon.min.js,WebRoot/plugins/jquery-validate-1.13.1/jquery.validate.min.js,WebRoot/content/themes/new/system/department/list.jsp,target,WebRoot/plugins/jquery-ui-1.11.4/jquery-ui.min.js,WebRoot/content/themes/new/system/department/edit.jsp,WebRoot/plugins/jquery-1.11.3.min.js,WebRoot/content/themes/new/system/core/main.jsp
 validator.Unchecked=

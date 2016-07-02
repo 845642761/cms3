@@ -17,7 +17,7 @@
 		<input type="hidden" name="strId" value="${department.strId}" />
 		<ul style="text-align: left;margin: 0px; padding: 0px;">
 			<li style="width: 100%; float: left;">
-				<a class="button" onclick="toAddDept(${department.strPid})">
+				<a class="button" onclick="toAddDept('${department.strId}')">
 					<b>添加子部门</b>
 				</a>
 				<a class="button" onclick="saveOrUpdate()">
@@ -90,7 +90,7 @@
 	 * 添加子部门
 	 */
 	function toAddDept(pid){
-		parent.parent.openDialog("<%=basePath %>/system/department/addChild.do?strPid="+pid,'添加子部门');
+		parent.parent.openDialog("<%=basePath %>/system/department/add.do?strPid="+pid,'添加子部门');
 	};
 </script>
 </html>

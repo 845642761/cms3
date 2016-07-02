@@ -23,26 +23,23 @@ public class DepartmentService implements IDepartmentService {
 	@Transactional
 	@Override
 	public String save(Department dept) {
-		/**
-		 * 更新父部门状态
-		 */
+		Department parent = null;
 		if(StringUtils.hasText(dept.getStrPid())){
-			Department parent = cumulativeOneParentChild(dept.getStrPid());
-			
-			String maxLevel = departmentDao.getMaxLevel(parent.getStrLevel());
-			if(StringUtils.hasLength(maxLevel) && Integer.parseInt(maxLevel) != 0){
-				dept.setStrLevel(String.format("%03d",(Integer.parseInt(maxLevel)+1)));
+			parent = departmentDao.getById(dept.getStrPid());
+			if(parent.getnChild() > 0){
+				String maxLevel = departmentDao.getMaxLevel(parent.getStrLevel() + "-", parent.getStrLevel().length() + 4);
+				if(StringUtils.hasLength(maxLevel)){
+					maxLevel = maxLevel.substring(maxLevel.length() -3, maxLevel.length());
+					dept.setStrLevel(parent.getStrLevel() + "-" + String.format("%03d",(Integer.parseInt(maxLevel)+1)));
+				}else {
+					dept.setStrLevel(parent.getStrLevel() + "-001");
+				}
 			}else {
-				dept.setStrLevel("001");
+				dept.setStrLevel(parent.getStrLevel() + "-001");
 			}
 		}else {
-			dept.setStrLevel("001");
-			dept.setStrPid("0");
-			
-			/**
-			 * 更新父部门
-			 */
-			cumulativeOneParentChild("0");
+			log.error("insert department error : strPid is null;");
+			throw new ServiceExecption("insert department error : strPid is null;");
 		}
 
 		String deptId = UuidUtil.getUUID();
@@ -51,21 +48,16 @@ public class DepartmentService implements IDepartmentService {
 		dept.setDtCreateTime(new Date());
 		try {
 			departmentDao.insert(dept);
+			//更新父部门
+			if(parent != null){
+				parent.setnChild(parent.getnChild() + 1);
+				departmentDao.update(parent);	
+			}
 		} catch (Exception e) {
 			log.error("insert department error : ", e);
 			throw new ServiceExecption("insert department error");
 		}
 		return deptId;
-	}
-	
-	/**
-	 * 父部门 子级数+1
-	 */
-	private Department cumulativeOneParentChild(String pId){
-		Department parent = departmentDao.getById(pId);
-		parent.setnChild(parent.getnChild() + 1);
-		departmentDao.update(parent);
-		return parent;
 	}
 
 	@Override

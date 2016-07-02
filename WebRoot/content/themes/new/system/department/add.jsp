@@ -14,7 +14,7 @@
 </head>
 <body>
 	<form id="addChild" action="<%=basePath%>/system/department/saveOrUpdate" method="post" style="padding: 20px;">
-		<input type="hidden" name="strId" value="${department.strId}" />
+		<input type="hidden" name="strPid" value="${strPid}" />
 		<ul style="text-align: left;margin: 0px; padding: 0px;">
 			<li style="width: 100%; float: left;">
 				部门名称：

@@ -112,16 +112,11 @@ public class DepartmentController extends BaseController {
 	}
 	
 	@RequestMapping("add")
-	public ModelAndView add(Department dept) {
-		ModelAndView mav = new ModelAndView("/system/department/edit");
-		mav.addObject("department", dept);
+	public ModelAndView add(String strPid) {
+		ModelAndView mav = new ModelAndView("/system/department/add");
+		mav.addObject("strPid", strPid);
 		return mav;
 	}
-	
-	
-	
-	
-	
 	
 	
 	

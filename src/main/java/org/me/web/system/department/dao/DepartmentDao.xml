@@ -59,7 +59,7 @@
 	</delete>
 	
 	<select id="getMaxLevel" resultType="String">
-		select max(strLevel) from department where strLevel like CONCAT(#{strLevel},'%') and nState = 0
+		select max(strLevel) from department where strLevel like CONCAT(#{strLevel},'%') and nState = 0 and length(strLevel) = #{length}
 	</select>
 	
 	<sql id="base_select">

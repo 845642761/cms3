@@ -29,7 +29,7 @@ INSERT INTO `department` (
 	`nChild`,
 	`strLevel`
 )VALUES(
-		'0',
+		'1',
 		'0',
 		'组织机构',
 		'组织机构',
