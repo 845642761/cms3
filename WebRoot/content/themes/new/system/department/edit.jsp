@@ -24,7 +24,9 @@
 					<b>保存</b>
 				</a>
 				<c:if test="${department.strId != '0'}">
-					<a class="button" onclick="del('${department.strId}')">删除</a>
+					<a class="button" onclick="delById('${department.strId}')">
+						<b>删除</b>
+					</a>
 				</c:if>
 			</li>
 			<li style="width: 100%; float: left;">

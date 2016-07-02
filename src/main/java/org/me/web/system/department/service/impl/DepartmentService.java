@@ -100,8 +100,10 @@ public class DepartmentService implements IDepartmentService {
 				departmentDao.delByLevel(dept.getStrLevel());
 				
 				Department parent = departmentDao.getById(dept.getStrPid());
-				parent.setnChild(parent.getnChild() - 1);
-				departmentDao.update(parent);
+				if(parent.getnChild() > 0){
+					parent.setnChild(parent.getnChild() - 1);
+					departmentDao.update(parent);
+				}
 			}else {
 				departmentDao.delById(id);
 			}
