@@ -8,13 +8,13 @@ VALUES ('001', '0', '系统管理', NULL, NULL, '0', '0', now()),
 
 -- 初始化角色数据
 INSERT INTO `role` (`strId`, `strName`, `strDescription`, `nState`) 
-VALUES ('001', 'admin', '管理员', '0');
+VALUES ('1', 'admin', '管理员', '0');
 
 -- 初始化角色权限数据
 INSERT INTO `rolepermission` (`strId`, `strRoleId`, `strPermissionId`) 
-VALUES ('001', '001', '001'),
-VALUES ('001', '001', '001-001'),
-VALUES ('001', '001', '001-002'),
+VALUES ('1', '1', '001'),
+VALUES ('2', '1', '001-001'),
+VALUES ('3', '1', '001-002'),
 
 -- 初始化部门数据
 INSERT INTO `department` (`strId`,`strPid`,`strName`,`strDescription`,`nState`,`dtCreateTime`,`nChild`,`strLevel`)
@@ -26,7 +26,7 @@ VALUES ('1', '00000000', 'admin', '0', NULL , NULL, NULL , NULL, NULL , now() , 
 
 -- 初始化用户角色数据
 INSERT INTO `userrole` (`strId`, `strLoginId`, `strRoleId`) 
-VALUES ('001', '1', '001');
+VALUES ('1', '1', '1');
 
 
 
