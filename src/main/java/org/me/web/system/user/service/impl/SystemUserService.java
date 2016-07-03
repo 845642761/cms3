@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.me.core.common.Result;
 import org.me.core.exception.ServiceExecption;
 import org.me.plugin.security.MD5;
+import org.me.plugin.util.UuidUtil;
 import org.me.web.system.user.dao.ISystemUserDao;
 import org.me.web.system.user.entity.SystemUser;
 import org.me.web.system.user.service.ISystemUserService;
@@ -43,21 +44,13 @@ public class SystemUserService implements ISystemUserService{
 	}
 	
 	@Override
-	public Result insert(SystemUser loginUser) {
-		Result resoult=new Result();
-		try {
-			MD5 md5=new MD5();
-			loginUser.setStrPassword(md5.toMd5(loginUser.getStrPassword()));
-			loginUserDao.insert(loginUser);
-			resoult.setInfo("保存成功！");
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e);
-			resoult.setInfo("保存失败");
-			resoult.setCode(-1);
-		}
-		logger.debug("SystemUserService.save successful!");
-		return resoult;
+	public String insert(SystemUser user) {
+		String userId = UuidUtil.getUUID();
+		user.setStrUserId(userId);
+		user.setStrPassword(MD5.toMd5(user.getStrPassword()));
+		loginUserDao.insert(user);
+		logger.debug("add one systemUser : userId is:" + userId + " &loginName is :" + user.getStrLoginName());
+		return userId;
 	}
 
 	/**
@@ -67,18 +60,17 @@ public class SystemUserService implements ISystemUserService{
 	 * @param 用户帐号
 	 */
 	@Override
-	public Result loginIdIsExit(String strLoginId) {
+	public Result loginNameIsExit(String strLoginName) {
 		Result resoult = new Result();
 		SystemUser user = new SystemUser();
-		user.setStrUserId(strLoginId);
+		user.setStrLoginName(strLoginName);
 		int size=0;
 		try {
 			size=loginUserDao.getListSize(user);
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e);
+			logger.error("validation loginName error :",e);
 			resoult.setCode(-1);
-			resoult.setInfo("查询错误");
+			resoult.setInfo("用户查询错误");
 		}
 		if(size > 0){
 			resoult.setCode(-1);
@@ -93,14 +85,25 @@ public class SystemUserService implements ISystemUserService{
 	 * @date: 2015年8月11日 14:01:52
 	 */
 	@Override
-	public SystemUser getByLoginId(String strLoginId) {
+	public SystemUser getByLoginName(String strLoginName) {
 		SystemUser u = null;
 		try {
-			u = loginUserDao.get(strLoginId);
+			u = loginUserDao.getByLoginName(strLoginName);
 		} catch (Exception e) {
-			e.printStackTrace();
 			logger.error(e);
-			throw new ServiceExecption("查询错误");
+			throw new ServiceExecption("getUser error : strLoginName is :" + strLoginName);
+		}
+		return u;
+	}
+
+	@Override
+	public SystemUser getById(String strUserId) {
+		SystemUser u = null;
+		try {
+			u = loginUserDao.getById(strUserId);
+		} catch (Exception e) {
+			logger.error(e);
+			throw new ServiceExecption("getUser error : strUserId is :" + strUserId);
 		}
 		return u;
 	}

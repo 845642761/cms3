@@ -52,7 +52,7 @@ public class MyRealm extends AuthorizingRealm {
 			// 实际上这个authcToken是从UserController里面subject.login(token)传过来的
 			// 两个token的引用都是一样的
 			UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-			loginUser=loginUserService.getByLoginId(token.getUsername());
+			loginUser=loginUserService.getByLoginName(token.getUsername());
 			if(loginUser == null){
 				throw new UnknownAccountException();//没找到帐号			
 			}

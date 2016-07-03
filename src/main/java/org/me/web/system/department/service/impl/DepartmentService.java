@@ -2,8 +2,11 @@ package org.me.web.system.department.service.impl;
 
 import java.util.Date;
 import java.util.List;
+
 import javax.annotation.Resource;
+
 import org.apache.log4j.Logger;
+import org.me.core.exception.ParamExecption;
 import org.me.core.exception.ServiceExecption;
 import org.me.plugin.util.UuidUtil;
 import org.me.web.system.department.dao.IDepartmentDao;
@@ -64,7 +67,7 @@ public class DepartmentService implements IDepartmentService {
 	public Department getById(String id) {
 		if(!StringUtils.hasText(id)){
 			log.error("department id is null");
-			throw new ServiceExecption("get department error : department id is null");
+			throw new ParamExecption("get department error : department id is null");
 		}
 		Department dept = null;
 		

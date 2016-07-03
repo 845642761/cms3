@@ -1,6 +1,5 @@
 package org.me.web.system.user.controller;
 
-import java.util.List;
 import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
@@ -10,7 +9,6 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.me.core.common.Result;
-import org.me.core.exception.ViewExecption;
 import org.me.web.core.common.base.BaseController;
 import org.me.web.system.user.entity.SystemUser;
 import org.me.web.system.user.service.ISystemUserService;
@@ -76,36 +74,9 @@ public class UserController extends BaseController {
 		return resoult;
 	}
 	
-	/**
-	 * 用户管理
-	 * @author: cheng_bo
-	 * @date: 2015年11月23日 11:33:37
-	 */
-	@RequestMapping("list")
-	public ModelAndView getList(SystemUser user) {
-		ModelAndView mav = new ModelAndView("/system/user/list");
-		return mav;
-	}
 	
-	/**
-	 * 查看部门下用户
-	 * @author: chengbo
-	 * @date: 2015年11月23日 14:50:13
-	 */
-	@RequestMapping("listByDeptId")
-	public ModelAndView listByDeptId(String deptId) {
-		ModelAndView mav = new ModelAndView("/system/user/deptUserList");
-		try {
-			List<SystemUser> users = systemUserService.listByDeptId(deptId);
-			mav.addObject("SystemUser", users);
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.error(e);
-			throw new ViewExecption("用户查询失败！");
-		}
-		return mav;
-	}
-
+	
+	
 	/**
 	 * 添加 || 修改跳转
 	 * @author: chengbo
@@ -115,7 +86,7 @@ public class UserController extends BaseController {
 	public ModelAndView edit(String strUserId) {
 		ModelAndView mav = new ModelAndView("/system/user/edit");
 		if(StringUtils.hasText(strUserId)){
-			mav.addObject("SystemUser", systemUserService.getByLoginId(strUserId));
+			mav.addObject("SystemUser", systemUserService.getById(strUserId));
 		}
 		return mav;
 	}
@@ -128,11 +99,11 @@ public class UserController extends BaseController {
 	@RequestMapping("saveOrUpdate")
 	@ResponseBody
 	public Result saveOrUpdate(SystemUser user){
-		String strLoginId = user.getStrUserId();
+		String strLoginName = user.getStrLoginName();
 		String strPassword = user.getStrPassword();
 		Result resoult=new Result();
 		resoult.setCode(-1);
-		if(StringUtils.isEmpty(strLoginId)){
+		if(StringUtils.isEmpty(strLoginName)){
 			resoult.setInfo("请输入用户名！");
 			return resoult;
 		}
@@ -141,12 +112,12 @@ public class UserController extends BaseController {
 			return resoult;
 		}
 		
-		resoult = this.systemUserService.loginIdIsExit(strLoginId);
+		resoult = this.systemUserService.loginNameIsExit(strLoginName);
 		if(!resoult.isSuccess()){
 			return resoult;
 		}
 
-		resoult=systemUserService.insert(user);
+		systemUserService.insert(user);
 		return resoult;
 	}
 	
@@ -159,17 +130,17 @@ public class UserController extends BaseController {
 	@RequestMapping("loginIdIsExit")
 	@ResponseBody
 	public Result loginIdIsExit(SystemUser user){
-		String strLoginId=user.getStrUserId();
+		String strLoginName=user.getStrLoginName();
 		Result resoult=new Result();
 		resoult.setCode(-1);
 		
-		if(!StringUtils.hasText(strLoginId))
+		if(!StringUtils.hasText(strLoginName))
 		{
 			resoult.setInfo("请输入用户帐号！");
 			return resoult;
 		}
 		
-		resoult = this.systemUserService.loginIdIsExit(strLoginId);
+		resoult = this.systemUserService.loginNameIsExit(strLoginName);
 		if(!resoult.isSuccess()){
 			return resoult;
 		}
