@@ -13,7 +13,8 @@ import org.me.core.common.base.BaseEntity;
 public class SystemUser extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private String strUserId;//登录id（字母小写）
+	private String strUserId;//id
+	private String strLoginName;//登录账号
 	private String strPassword;//密码
 	private String strName;//姓名
 	private Integer nSex;//性别, 0-未填写,1-男,2-女
@@ -35,6 +36,12 @@ public class SystemUser extends BaseEntity implements Serializable {
 	}
 	public void setStrUserId(String strUserId) {
 		this.strUserId = strUserId;
+	}
+	public String getStrLoginName() {
+		return strLoginName;
+	}
+	public void setStrLoginName(String strLoginName) {
+		this.strLoginName = strLoginName;
 	}
 	public String getStrPassword() {
 		return strPassword;
