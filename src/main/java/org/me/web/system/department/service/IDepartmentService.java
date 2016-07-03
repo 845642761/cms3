@@ -10,7 +10,7 @@ public interface IDepartmentService {
 	 * @return dept id
 	 * @date 2016年5月16日 11:05:07
 	 */
-	public String save(Department dept);
+	public String insert(Department dept);
 	
 	public Department getById(String id);
 

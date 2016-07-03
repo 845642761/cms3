@@ -84,7 +84,7 @@ public class DepartmentController extends BaseController {
 		String id = dept.getStrId();
 		try {
 			if(!StringUtils.hasText(id)){
-				departmentService.save(dept);
+				departmentService.insert(dept);
 			}else {
 				departmentService.update(dept);
 			}

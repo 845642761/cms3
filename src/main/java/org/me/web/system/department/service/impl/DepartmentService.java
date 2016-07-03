@@ -22,7 +22,7 @@ public class DepartmentService implements IDepartmentService {
 
 	@Transactional
 	@Override
-	public String save(Department dept) {
+	public String insert(Department dept) {
 		Department parent = null;
 		if(StringUtils.hasText(dept.getStrPid())){
 			parent = departmentDao.getById(dept.getStrPid());
