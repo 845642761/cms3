@@ -68,7 +68,7 @@ public class UserController extends BaseController {
 				resoult.setInfo("帐号审核中！");
 			}
 		}catch (Exception e) {
-			e.printStackTrace();
+			log.error(e);
 			resoult.setInfo("登录失败！");
 		}
 		return resoult;
