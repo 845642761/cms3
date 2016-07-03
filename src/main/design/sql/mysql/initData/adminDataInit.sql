@@ -27,8 +27,3 @@ VALUES ('1', 'admin', '00000000', 'admin', '0', NULL , NULL, NULL , NULL, NULL ,
 -- 初始化用户角色数据
 INSERT INTO `userrole` (`strId`, `strLoginId`, `strRoleId`) 
 VALUES ('1', '1', '1');
-
-
-
-
-
