@@ -27,7 +27,7 @@
 	<div class="nav">
 		<ul>
 			<c:forEach var="items" items="${menuOneLevel}">
-				<li onclick="changeMenu(${items.strId})">${items.strName}</li>
+				<li onclick="changeMenu('${items.strId}')">${items.strName}</li>
 			</c:forEach>
 		</ul>
 	</div>
