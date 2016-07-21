@@ -13,8 +13,8 @@ VALUES ('1', 'admin', '管理员', '0');
 -- 初始化角色权限数据
 INSERT INTO `rolepermission` (`strId`, `strRoleId`, `strPermissionId`) 
 VALUES ('1', '1', '001'),
-VALUES ('2', '1', '001-001'),
-VALUES ('3', '1', '001-002');
+('2', '1', '001-001'),
+('3', '1', '001-002');
 
 -- 初始化部门数据
 INSERT INTO `department` (`strId`,`strPid`,`strName`,`strDescription`,`nState`,`dtCreateTime`,`nChild`,`strLevel`)
