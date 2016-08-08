@@ -63,10 +63,12 @@
 				if(data.code != 0){
 					alert(data.info);
 				}
+				parent.refreshNode();
 				window.location.href = window.location.href;
 			},
 			error : function(XMLHttpRequest, textStatus, errorThrown) {    
-				alert("异常");  
+				alert("异常");
+				parent.refreshNode();
 				return;
 			}
 		});
@@ -83,10 +85,12 @@
 				if(data.code != 0){
 					alert(data.info);
 				}
+				parent.refreshNode();
 				window.location.href = window.location.href;
 			},
 			error : function(XMLHttpRequest, textStatus, errorThrown) {    
 				alert("异 常");
+				parent.refreshNode();
 				return;
 			}
 		});
@@ -113,10 +117,12 @@
 					alert(data.info);
 				}
 				dialog.dialog('close');
+				parent.refreshNode();
 				window.location.href = window.location.href;
 			},
 			error : function(XMLHttpRequest, textStatus, errorThrown) {    
 				alert("异常");
+				parent.refreshNode();
 				dialog.dialog('close');
 			}
 		});

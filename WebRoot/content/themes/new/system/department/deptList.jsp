@@ -30,23 +30,12 @@
 			<iframe name="right" marginWidth="0" marginHeight="0" frameBorder="0" width="100%" height="100%" scrolling="no"></iframe>
 		</div>
 	</div>
-
-	<div id="rMenu">
-		<ul>
-			<li id="m_add" onclick="addTreeNode();">增加节点</li>
-			<li id="m_del" onclick="removeTreeNode();">删除节点</li>
-		</ul>
-	</div>
 </body>
 <script type="text/javascript" src="<%=basePath%>/plugins/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="<%=basePath %>/plugins/zTreeV3.5.19/jquery.ztree.all-3.5.min.js"></script>
 <script type="text/javascript">
 	var ztree,rMenu;
 	var setting = {
-		view: {
-			selectedMulti: false,
-			dblClickExpand: false
-		},
 		async: {
 			enable: true,
 			dataType:"json",
@@ -60,69 +49,8 @@
 	    	idKey:"id",
 	        idPKey:"pId",
 	        rootPid:null
-		},
-		callback: {
-			onRightClick: OnRightClick
 		}
 	};
-	
-	/**
-	 * 右键菜单
-	 */
-	function OnRightClick(event, treeId, treeNode) {
-		if (!treeNode && event.target.tagName.toLowerCase() != "button" && $(event.target).parents("a").length == 0) {
-			ztree.cancelSelectedNode();
-			showRMenu("root", event.clientX, event.clientY);
-		} else if (treeNode && !treeNode.noR) {
-			ztree.selectNode(treeNode);
-			showRMenu("node", event.clientX, event.clientY);
-		}
-	}
-
-	function showRMenu(type, x, y) {
-		$("#rMenu ul").show();
-		$("#m_add").show();
-		$("#m_del").show();
-		rMenu.css({"top":y+"px", "left":x+"px", "visibility":"visible"});
-		$("body").bind("mousedown", onBodyMouseDown);
-	}
-	
-	function hideRMenu() {
-		if (rMenu) rMenu.css({"visibility": "hidden"});
-		$("body").unbind("mousedown", onBodyMouseDown);
-	}
-	
-	function onBodyMouseDown(event){
-		if (!(event.target.id == "rMenu" || $(event.target).parents("#rMenu").length>0)) {
-			rMenu.css({"visibility" : "hidden"});
-		}
-	}
-	
-	var addCount = 1;
-	function addTreeNode() {
-		hideRMenu();
-		var newNode = { name:"增加" + (addCount++)};
-		if (ztree.getSelectedNodes()[0]) {
-			newNode.checked = ztree.getSelectedNodes()[0].checked;
-			ztree.addNodes(ztree.getSelectedNodes()[0], newNode);
-		} else {
-			ztree.addNodes(null, newNode);
-		}
-	}
-	function removeTreeNode() {
-		hideRMenu();
-		var nodes = ztree.getSelectedNodes();
-		if (nodes && nodes.length>0) {
-			if (nodes[0].children && nodes[0].children.length > 0) {
-				var msg = "要删除的节点是父节点，如果删除将连同子节点一起删掉。\n\n请确认！";
-				if (confirm(msg)==true){
-					ztree.removeNode(nodes[0]);
-				}
-			} else {
-				ztree.removeNode(nodes[0]);
-			}
-		}
-	}
 	
 	/**
 	 * 数据过滤
