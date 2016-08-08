@@ -49,6 +49,12 @@
 </body>
 <script type="text/javascript" src="<%=basePath%>/plugins/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
+
+	new parent.parent.ui.tags.AjaxOverlay;
+	var dialog = parent.parent.ui.createDialog('<div>',{
+		title:'添加子部门'
+	});;
+
 	function delById(id){
 		$.ajax({
 			type : 'POST',
@@ -77,22 +83,43 @@
 				if(data.code != 0){
 					alert(data.info);
 				}
-				parent.refreshNode();
 				window.location.href = window.location.href;
 			},
 			error : function(XMLHttpRequest, textStatus, errorThrown) {    
-				alert("异常");
-				parent.refreshNode();
+				alert("异 常");
 				return;
 			}
 		});
 	}
-
+	
 	/**
 	 * 添加子部门
 	 */
 	function toAddDept(pid){
-		parent.parent.openDialog("<%=basePath %>/system/department/add.do?strPid="+pid,'添加子部门');
+		$.get('<%=basePath %>/system/department/add.do?strPid='+pid,function(data){
+			dialog.html(data).dialog('open');
+		});
 	};
+	
+	dialog.on('click','#add',function(){
+		var form = dialog.find('#addChild');
+		$.ajax({
+			type : 'POST',
+			url  : form.attr('action'),
+			data : form.serialize(),
+			dataType : 'json',
+			success:function(data) { 
+				if(data.code != 0){
+					alert(data.info);
+				}
+				dialog.dialog('close');
+				window.location.href = window.location.href;
+			},
+			error : function(XMLHttpRequest, textStatus, errorThrown) {    
+				alert("异常");
+				dialog.dialog('close');
+			}
+		});
+	});
 </script>
 </html>

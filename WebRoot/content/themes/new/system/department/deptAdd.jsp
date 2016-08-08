@@ -25,35 +25,11 @@
 				<input type="text" name="strDescription" value="${department.strDescription}" />
 			</li>
 			<li>
-				<a class="button" onclick="add()">
+				<a id = "add" class="button">
 					<b>保存</b>
 				</a>
 			</li>
 		</ul>
 	</form>
 </body>
-<script type="text/javascript" src="<%=basePath%>/plugins/jquery-1.11.3.min.js"></script>
-<script type="text/javascript">
-	function add(){
-		var form = $('#addChild');
-		$.ajax({
-			type : 'POST',
-			url  : form.attr('action'),
-			data : form.serialize(),
-			dataType : 'json',
-			success:function(data) { 
-				if(data.code != 0){
-					alert(data.info);
-				}
-				parent.parent.refreshNode();
-				window.location.href = window.location.href;
-			},
-			error : function(XMLHttpRequest, textStatus, errorThrown) {    
-				alert("异常");
-				parent.parent.refreshNode();
-				return;
-			}
-		});
-	};
-</script>
 </html>
