@@ -27,7 +27,7 @@
 			<ul id="tree" class="ztree"></ul>
 		</div>
 		<div style="width: 80%; height: 500px; float: left;">
-			<iframe name="right" marginWidth="0" marginHeight="0" frameBorder="0" width="100%" height="100%" scrolling="no"></iframe>
+			<iframe id = "deptDetail" name="right" marginWidth="0" marginHeight="0" frameBorder="0" width="100%" height="100%" scrolling="no"></iframe>
 		</div>
 	</div>
 </body>
@@ -73,6 +73,19 @@
 		if (nodes.length > 0) {
 			ztree.reAsyncChildNodes(nodes[0].getParentNode(), "refresh");
 			ztree.selectNode(nodes[0]);
+		}
+	};
+	
+	/**
+	 * 删除刷新
+	 */
+	function delRefreshNode(){
+		var nodes = ztree.getSelectedNodes();
+		if (nodes.length > 0) {
+			ztree.reAsyncChildNodes(nodes[0].getParentNode(), "refresh");
+			var parentNode = nodes[0].getParentNode();
+			ztree.selectNode(parentNode);
+			$('#deptDetail').attr('src', parentNode.url).reload();
 		}
 	};
 	

@@ -23,7 +23,7 @@
 				<a class="button" onclick="saveOrUpdate()">
 					<b>保存</b>
 				</a>
-				<c:if test="${department.strId != '0'}">
+				<c:if test="${!department.strId eq '0'}">
 					<a class="button" onclick="delById('${department.strId}')">
 						<b>删除</b>
 					</a>
@@ -63,7 +63,7 @@
 				if(data.code != 0){
 					alert(data.info);
 				}
-				parent.refreshNode();
+				parent.delRefreshNode();
 				window.location.href = window.location.href;
 			},
 			error : function(XMLHttpRequest, textStatus, errorThrown) {    
