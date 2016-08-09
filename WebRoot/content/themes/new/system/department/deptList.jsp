@@ -70,8 +70,9 @@
 	 */
 	function refreshNode(){
 		var nodes = ztree.getSelectedNodes();
-		if (nodes.length>0) {
+		if (nodes.length > 0) {
 			ztree.reAsyncChildNodes(nodes[0].getParentNode(), "refresh");
+			ztree.selectNode(nodes[0]);
 		}
 	};
 	
