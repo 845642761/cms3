@@ -117,14 +117,13 @@ public class DepartmentService implements IDepartmentService {
 	}
 
 	@Override
-	public Department update(Department dept) {
+	public void update(Department dept) {
 		try {
 			departmentDao.update(dept);
 		} catch (Exception e) {
 			log.error("update department error : ", e);
 			throw new ServiceExecption("update department error : id is " + dept.getStrId());
 		}
-		return dept;
 	}
 
 	@Override

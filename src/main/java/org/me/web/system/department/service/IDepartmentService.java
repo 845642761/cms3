@@ -18,7 +18,7 @@ public interface IDepartmentService {
 	
 	public void delById(String id);
 	
-	public Department update(Department dept);
+	public void update(Department dept);
 	
 	public List<Department> getList(Department t);
 }
