@@ -29,7 +29,7 @@
 		from systemUser where strLoginName=#{strLoginName}
 	</select>
 	
-	<update id="updateUserState" >
+	<update id="updateUserState" parameterType="String" >
 		update systemUser set nState = #{nState} where strUserId=#{strUserId}
 	</update>
 	
