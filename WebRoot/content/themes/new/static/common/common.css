@@ -1,3 +1,6 @@
+/**
+ * button 
+ */
 .button{
 	height: 24px;
 	margin: 0 5px 0 0;
@@ -29,4 +32,19 @@
 .button:hover b {
 	color: #FFF;
 	background:#55CCC8;
+}
+
+/**
+ * common
+ */
+.alignCenter{
+	text-align: center;
+}
+
+.left{
+	float: left;
+}
+
+.right{
+	float: right;
 }
