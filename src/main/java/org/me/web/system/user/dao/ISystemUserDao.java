@@ -11,8 +11,8 @@ public interface ISystemUserDao{
 	public SystemUser getById(String strUserId);
 	public int updateUserState(@Param("strUserId")String strUserId, @Param("nState")Integer nState);//更改用户状态
 	public SystemUser getByLoginName(String strLoginName);
-	
 	public int delById(String strUserId);
+	
 	public int insert(SystemUser user);
 	public int update(SystemUser user);
 }

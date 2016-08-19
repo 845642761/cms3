@@ -55,6 +55,27 @@ public class DepartmentController extends BaseController {
 	}
 	
 	/**
+	 * 部门列表
+	 * @date: 2016年8月18日 17:06:27
+	 * @return
+	 */
+	@RequestMapping("listDept")
+	@ResponseBody
+	public List<ZtreeDTO> listDept() {
+		List<ZtreeDTO> departments = null;
+		try {
+			Department d = new Department();
+			d.setnState(0);
+			List<Department> depts = departmentService.getList(d);
+			departments = toZtree(depts);
+		} catch (Exception e) {
+			log.error("get department list error : ",e);
+			throw new ViewExecption("get department list error");
+		}
+		return departments;
+	}
+	
+	/**
 	 * 查看详情
 	 * @author: chengbo
 	 * @date: 2016年3月17日 11:43:57

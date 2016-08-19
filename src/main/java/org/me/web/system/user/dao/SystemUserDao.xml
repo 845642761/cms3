@@ -33,6 +33,10 @@
 		update systemUser set nState = #{nState} where strUserId=#{strUserId}
 	</update>
 	
+	<delete id="delById" parameterType="String">
+		delete from systemUser where strUserId=#{strUserId}
+	</delete>
+	
 	<sql id="base_select">
 		strUserId,strLoginName,strPassword,strName,nSex,strMobile,strPhone,strEmail,strQQ,strWeChar,dtBirthday,strAddress,strHeadURL,nState,strDeptId,dtCreateTime,dtUpdateTime
 	</sql>

@@ -15,7 +15,7 @@
 			<ul id="tree" class="ztree"></ul>
 		</div>
 		<div style="width: 80%; height: 500px; float: left;">
-			<iframe id = "deptDetail" name="right" marginWidth="0" marginHeight="0" frameBorder="0" width="100%" height="100%" scrolling="no"></iframe>
+			<iframe id = "userList" name="right" marginWidth="0" marginHeight="0" frameBorder="0" width="100%" height="100%" scrolling="no"></iframe>
 		</div>
 	</div>
 </body>
@@ -46,35 +46,11 @@
 	function ajaxDataFilter(treeId, parentNode, responseData) {
 	    if (responseData) {
 	      for(var i =0; i < responseData.length; i++) {
-	    	  responseData[i].url="<%=basePath%>/system/department/toDetail.do?id="+responseData[i].id;
+	    	  responseData[i].url="<%=basePath%>/system/user/userList.do?strDeptId="+responseData[i].id;
 	    	  responseData[i].target="right";
 	      }
 	    }
 	    return responseData;
-	};
-	
-	/**
-	 * 刷新
-	 */
-	function refreshNode(){
-		var nodes = ztree.getSelectedNodes();
-		if (nodes.length > 0) {
-			ztree.reAsyncChildNodes(nodes[0].getParentNode(), "refresh");
-			ztree.selectNode(nodes[0]);
-		}
-	};
-	
-	/**
-	 * 删除刷新
-	 */
-	function delRefreshNode(){
-		var nodes = ztree.getSelectedNodes();
-		if (nodes.length > 0) {
-			ztree.reAsyncChildNodes(nodes[0].getParentNode(), "refresh");
-			var parentNode = nodes[0].getParentNode();
-			ztree.selectNode(parentNode);
-			$('#deptDetail').attr('src', parentNode.url).reload();
-		}
 	};
 	
 	$(document).ready(function(){

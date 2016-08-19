@@ -1,5 +1,7 @@
 package org.me.web.system.user.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
@@ -31,6 +33,29 @@ public class UserController extends BaseController {
 	
 	@Resource
 	private ISystemUserService systemUserService;
+	
+	/**
+	 * 用户列表
+	 * @param lUser
+	 * @date: 2016年8月18日 16:54:56
+	 */
+	@RequestMapping("list")
+	public ModelAndView list(SystemUser lUser) {
+		return new ModelAndView("/system/user/list");
+	}
+	
+	/**
+	 * 用户列表
+	 * @param lUser
+	 * @date 2016年8月19日 16:19:31
+	 */
+	@RequestMapping("userList")
+	public ModelAndView userList(SystemUser user) {
+		ModelAndView mav = new ModelAndView("/system/user/userList");
+		List<SystemUser> users = systemUserService.listByDeptId(user.getStrDeptId());
+		mav.addObject("users", users);
+		return mav;
+	}
 	
 	/**
 	 * 登录跳转
@@ -74,17 +99,14 @@ public class UserController extends BaseController {
 		return resoult;
 	}
 	
-	
-	
-	
 	/**
 	 * 添加 || 修改跳转
 	 * @author: chengbo
 	 * @date: 2015年12月14日 20:28:42
 	 */
-	@RequestMapping("edit")
-	public ModelAndView edit(String strUserId) {
-		ModelAndView mav = new ModelAndView("/system/user/edit");
+	@RequestMapping("toDetail")
+	public ModelAndView toDetail(String strUserId) {
+		ModelAndView mav = new ModelAndView("/system/user/userEdit");
 		if(StringUtils.hasText(strUserId)){
 			mav.addObject("SystemUser", systemUserService.getById(strUserId));
 		}
@@ -112,42 +134,10 @@ public class UserController extends BaseController {
 			return resoult;
 		}
 		
-		resoult = this.systemUserService.loginNameIsExit(strLoginName);
-		if(!resoult.isSuccess()){
-			return resoult;
+		if(StringUtils.hasText(user.getStrUserId())){
+		}else {
+			systemUserService.insert(user);
 		}
-
-		systemUserService.insert(user);
 		return resoult;
 	}
-	
-	/**
-	 * 用户帐号是否已存在
-	 * @author cheng_bo
-	 * @throws IOException 
-	 * @date 2015年5月26日 10:23:42
-	 */
-	@RequestMapping("loginIdIsExit")
-	@ResponseBody
-	public Result loginIdIsExit(SystemUser user){
-		String strLoginName=user.getStrLoginName();
-		Result resoult=new Result();
-		resoult.setCode(-1);
-		
-		if(!StringUtils.hasText(strLoginName))
-		{
-			resoult.setInfo("请输入用户帐号！");
-			return resoult;
-		}
-		
-		resoult = this.systemUserService.loginNameIsExit(strLoginName);
-		if(!resoult.isSuccess()){
-			return resoult;
-		}
-		
-		resoult.setCode(0);
-		resoult.setInfo("帐号可以使用！");
-		return resoult;
-	}
-	
 }

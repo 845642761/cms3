@@ -58,7 +58,7 @@
 	function delById(id){
 		$.ajax({
 			type : 'POST',
-			url :'<%=basePath %>/system/department/delById.do?id='+id,
+			url :'<%=basePath %>/system/department/delById?id='+id,
 			success:function(data) { 
 				if(data.code != 0){
 					alert(data.info);
@@ -100,7 +100,7 @@
 	 * 添加子部门
 	 */
 	function toAddDept(pid){
-		$.get('<%=basePath %>/system/department/add.do?strPid='+pid,function(data){
+		$.get('<%=basePath %>/system/department/add?strPid='+pid,function(data){
 			dialog.html(data).dialog('open');
 		});
 	};

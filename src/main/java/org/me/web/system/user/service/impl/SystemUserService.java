@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import org.apache.log4j.Logger;
-import org.me.core.common.Result;
 import org.me.core.exception.ServiceExecption;
 import org.me.plugin.security.MD5;
 import org.me.plugin.util.UuidUtil;
@@ -39,7 +38,7 @@ public class SystemUserService implements ISystemUserService{
 	public List<SystemUser> listByDeptId(String deptId) {
 		SystemUser user = new SystemUser();
 		user.setStrDeptId(deptId);
-		user.setnState(0);
+		user.setnState(1);
 		return loginUserDao.getList(user);
 	}
 	
@@ -51,32 +50,6 @@ public class SystemUserService implements ISystemUserService{
 		loginUserDao.insert(user);
 		logger.debug("add one systemUser : userId is:" + userId + " &loginName is :" + user.getStrLoginName());
 		return userId;
-	}
-
-	/**
-	 * 用户帐号是否已存在
-	 * @author cheng_bo
-	 * @date 2015年5月26日 11:03:05
-	 * @param 用户帐号
-	 */
-	@Override
-	public Result loginNameIsExit(String strLoginName) {
-		Result resoult = new Result();
-		SystemUser user = new SystemUser();
-		user.setStrLoginName(strLoginName);
-		int size=0;
-		try {
-			size=loginUserDao.getListSize(user);
-		} catch (Exception e) {
-			logger.error("validation loginName error :",e);
-			resoult.setCode(-1);
-			resoult.setInfo("用户查询错误");
-		}
-		if(size > 0){
-			resoult.setCode(-1);
-			resoult.setInfo("用户已存在");
-		}
-		return resoult;
 	}
 	
 	/**

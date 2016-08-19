@@ -2,7 +2,6 @@ package org.me.web.system.user.service;
 
 import java.util.List;
 
-import org.me.core.common.Result;
 import org.me.web.system.user.entity.SystemUser;
 
 /**
@@ -15,6 +14,5 @@ public interface ISystemUserService {
 	public List<SystemUser> getList(SystemUser user);//用户管理
 	public SystemUser getByLoginName(String strLoginName);//根据strLoginName获取用户
 	public SystemUser getById(String strUserId);
-	public Result loginNameIsExit(String strLoginId);//用户帐号是否已存在
 	public List<SystemUser> listByDeptId(String deptId);//根据部门id查询用户
 }
