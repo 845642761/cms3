@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ include file="../../../common/init.jsp"%>
+<%@ include file="../../../common/init.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,7 +53,7 @@
 	new parent.parent.ui.tags.AjaxOverlay;
 	var dialog = parent.parent.ui.createDialog('<div>',{
 		title:'添加子部门'
-	});;
+	});
 
 	function delById(id){
 		$.ajax({
