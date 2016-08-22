@@ -36,7 +36,9 @@
 						<c:otherwise>待审核</c:otherwise>
 					</c:choose>
 				</td>
-				<td>${user.dtCreateTime}</td>
+				<td>
+					<fmt:formatDate value="${user.dtCreateTime}" pattern="yyyy-MM-dd HH:mm:ss" type="date" />
+				</td>
 			</tr>
 		</c:forEach>
 	</table>
