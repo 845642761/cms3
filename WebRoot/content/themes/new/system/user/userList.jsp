@@ -5,11 +5,11 @@
 <title>${cmsInfo.title}</title>
 <meta charset="utf-8" />
 <%@ include file="../../init/cssInit.jsp" %>
-<link href="<%=basePath %>/plugins/zTreeV3.5.19/zTreeStyle/zTreeStyle.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	<table class="table">
 		<thead>
+			<th></th>
 			<th>登录账号</th>
 			<th>姓名</th>
 			<th>手机号</th>
@@ -19,7 +19,8 @@
 		</thead>
 		<c:forEach items="${users}" var="user">
 			<tr>
-				<td>${user.strLoginName}</td>
+				<td><input name="strUserId" value="${user.strUserId}" type="checkbox" /></td>
+				<td class = "toDetail" value = "${user.strUserId}">${user.strLoginName}</td>
 				<td>${user.strName}</td>
 				<td>${user.strMobile}</td>
 				<td>
@@ -44,4 +45,19 @@
 	</table>
 </body>
 <script type="text/javascript" src="<%=basePath%>/plugins/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+	new parent.parent.ui.tags.AjaxOverlay;
+	var dialog = parent.parent.ui.createDialog('<div>',{
+		title:'用户编辑'
+	});
+	
+	/**
+	 * 用户编辑
+	 */
+	$('.toDetail').click(function(){
+		$.get('<%=basePath %>/system/user/toDetail?strUserId='+ $(this).attr('value'),function(data){
+			dialog.html(data).dialog('open');
+		});
+	});
+</script>
 </html>

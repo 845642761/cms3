@@ -46,7 +46,7 @@ public class UserController extends BaseController {
 	
 	/**
 	 * 用户列表
-	 * @param lUser
+	 * @param user
 	 * @date 2016年8月19日 16:19:31
 	 */
 	@RequestMapping("userList")
