@@ -108,7 +108,7 @@ public class UserController extends BaseController {
 	public ModelAndView toDetail(String strUserId) {
 		ModelAndView mav = new ModelAndView("/system/user/userEdit");
 		if(StringUtils.hasText(strUserId)){
-			mav.addObject("SystemUser", systemUserService.getById(strUserId));
+			mav.addObject("systemUser", systemUserService.getById(strUserId));
 		}
 		return mav;
 	}

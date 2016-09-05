@@ -48,7 +48,8 @@
 <script type="text/javascript">
 	new parent.parent.ui.tags.AjaxOverlay;
 	var dialog = parent.parent.ui.createDialog('<div>',{
-		title:'用户编辑'
+		title:'用户编辑',
+		width:'80%'
 	});
 	
 	/**

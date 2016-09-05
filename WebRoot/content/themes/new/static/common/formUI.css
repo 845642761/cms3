@@ -25,3 +25,8 @@ thead td {
 .table tr td {
 	border: 1px solid #dddddd;
 }
+
+.table td .label{
+	text-align: right;
+	font-weight: bold;
+}
