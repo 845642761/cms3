@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.me.core.common.Constant;
+import org.me.plugin.paging.core.Pagination;
 import org.me.web.system.user.entity.SystemUser;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
@@ -41,5 +42,11 @@ public class BaseController {
 		if(session == null || session.getAttribute(Constant.LOGINUSER) == null)
 			return null;
 		return (SystemUser) session.getAttribute(Constant.LOGINUSER);
+	}
+	
+	public void setPagination(Pagination pagination) {
+		if(pagination == null)
+			return;
+		getRequest().setAttribute(Pagination.PAGINATION, pagination);
 	}
 }
