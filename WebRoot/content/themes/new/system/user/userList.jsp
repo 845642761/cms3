@@ -17,7 +17,7 @@
 			<th>状态</th>
 			<th>注册时间</th>
 		</thead>
-		<c:forEach items="${users}" var="user">
+		<c:forEach items="${userList.list}" var="user">
 			<tr>
 				<td><input name="strUserId" value="${user.strUserId}" type="checkbox" /></td>
 				<td class = "toDetail" value = "${user.strUserId}">${user.strLoginName}</td>
@@ -43,6 +43,7 @@
 			</tr>
 		</c:forEach>
 	</table>
+	<pg:defaultPaging/>
 </body>
 <script type="text/javascript" src="<%=basePath%>/plugins/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">

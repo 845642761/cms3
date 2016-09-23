@@ -12,6 +12,15 @@
 			<include refid="base_where"></include>
 	</select>
 	
+	<select id="getListByMap" parameterType="Map" resultType="org.me.web.system.user.entity.SystemUser">
+		select
+			<include refid="base_select" />
+		from systemUser where 1=1
+			<include refid="base_where"></include>
+			<include refid="order"></include>
+			<include refid="limit"></include>
+	</select>
+	
 	<select id="getListSize" parameterType="org.me.web.system.user.entity.SystemUser" resultType="Integer">
 		select count(1) from systemUser where 1=1
 			<include refid="base_where"></include>
@@ -82,22 +91,18 @@
 	
 	<sql id="order">
 		<choose>
-			<when test="order != null and order != ''">
-				order by #{order}
+			<when test="orderBy != null and orderBy != ''">
+				 order by #{orderBy}
 			</when>
 			<otherwise>
-				order by dtCreateTime desc
+				 order by dtCreateTime desc
 			</otherwise>
 		</choose>
 	</sql>
 	
 	<sql id="limit">
-		<choose>
-			<when test="start != null and start != '' and limit != null and limit != ''">
-				limit #{start},#{limit}
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
+		<if test="startIndex != null and startIndex &gt;= 0 and numPerPage !=null and numPerPage &gt;= 0">
+			 limit #{startIndex},#{numPerPage}
+		</if>
 	</sql>
 </mapper>

@@ -1,7 +1,5 @@
 package org.me.web.system.user.controller;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
@@ -11,6 +9,8 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.me.core.common.Result;
+import org.me.plugin.paging.io.QueryPagination;
+import org.me.plugin.paging.vo.PageList;
 import org.me.web.core.common.base.BaseController;
 import org.me.web.system.user.entity.SystemUser;
 import org.me.web.system.user.service.ISystemUserService;
@@ -50,10 +50,11 @@ public class UserController extends BaseController {
 	 * @date 2016年8月19日 16:19:31
 	 */
 	@RequestMapping("userList")
-	public ModelAndView userList(SystemUser user) {
+	public ModelAndView userList(SystemUser user, QueryPagination queryPagination) {
 		ModelAndView mav = new ModelAndView("/system/user/userList");
-		List<SystemUser> users = systemUserService.listByDeptId(user.getStrDeptId());
-		mav.addObject("users", users);
+		PageList<SystemUser> userList = systemUserService.listForPageByDeptId(user.getStrDeptId(), queryPagination);
+		mav.addObject("userList", userList);
+		setPagination(userList.getPagination());
 		return mav;
 	}
 	

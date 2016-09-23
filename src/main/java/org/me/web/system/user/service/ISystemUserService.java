@@ -2,6 +2,8 @@ package org.me.web.system.user.service;
 
 import java.util.List;
 
+import org.me.plugin.paging.io.QueryPagination;
+import org.me.plugin.paging.vo.PageList;
 import org.me.web.system.user.entity.SystemUser;
 
 /**
@@ -15,4 +17,6 @@ public interface ISystemUserService {
 	public SystemUser getByLoginName(String strLoginName);//根据strLoginName获取用户
 	public SystemUser getById(String strUserId);
 	public List<SystemUser> listByDeptId(String deptId);//根据部门id查询用户
+	public PageList<SystemUser> getListForPage(SystemUser user, QueryPagination queryPagination);//分页查询
+	public PageList<SystemUser> listForPageByDeptId(String deptId, QueryPagination queryPagination);//分页查询
 }
