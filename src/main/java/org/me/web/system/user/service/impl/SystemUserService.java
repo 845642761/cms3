@@ -106,9 +106,11 @@ public class SystemUserService implements ISystemUserService{
 		SystemUser user = new SystemUser();
 		user.setStrDeptId(deptId);
 		user.setnState(1);
+		
 		Map<String, Object> map = new HashMap<>();
 		map.put("nState", 1);
 		map.put("strDeptId", deptId);
+		map.putAll(ObjectUtil.objectToMapIgnoreStatic(queryPagination));
 		PageList<SystemUser> pageList = new PageList<>();
 		pageList.setList(systemUserDao.getListByMap(map));
 		Pagination pagination = pageList.getPagination();

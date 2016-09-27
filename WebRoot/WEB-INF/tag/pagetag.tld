@@ -9,11 +9,26 @@
         <name>defaultPaging</name>    
         <tag-class>org.me.web.plugin.tag.DefaultPageTag</tag-class>    
         <body-content>empty</body-content>    
-        <!-- <attribute>    
+        <attribute>    
             <name>url</name>    
-            <required> true </required>    
-            <rtexprvalue> true </rtexprvalue>    
-        </attribute> -->
+            <required>true</required>    
+            <rtexprvalue>true</rtexprvalue>    
+        </attribute>
+        <attribute>    
+            <name>totalRows</name>    
+            <required>true</required>    
+            <rtexprvalue>true</rtexprvalue>    
+        </attribute>
+        <attribute>    
+            <name>numPerPage</name>    
+            <required>false</required>    
+            <rtexprvalue>true</rtexprvalue>    
+        </attribute>
+        <attribute>    
+            <name>startIndex</name>    
+            <required>true</required>    
+            <rtexprvalue>true</rtexprvalue>    
+        </attribute>
     </tag>      
 </taglib>    
 

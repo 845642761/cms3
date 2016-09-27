@@ -3,11 +3,10 @@ package org.me.web.core.common.base;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.me.core.common.Constant;
 import org.me.plugin.paging.core.Pagination;
 import org.me.web.system.user.entity.SystemUser;
@@ -47,6 +46,36 @@ public class BaseController {
 	public void setPagination(Pagination pagination) {
 		if(pagination == null)
 			return;
-		getRequest().setAttribute(Pagination.PAGINATION, pagination);
+		HttpServletRequest request = getRequest();
+		request.setAttribute("url", request.getRequestURL() + "?" + getParamsFormRequest(request));
+		request.setAttribute("totalRows", pagination.getTotalRows());
+		request.setAttribute("numPerPage", pagination.getNumPerPage());
+		request.setAttribute("startIndex", pagination.getStartIndex());
+	}
+	
+	private String getParamsFormRequest(HttpServletRequest request) {
+		StringBuffer sb = new StringBuffer();
+		Enumeration<String> parameters = request.getParameterNames();
+		while (parameters.hasMoreElements()) {
+			String name = parameters.nextElement();
+			if(Pagination.STARTINDEX.equals(name)){
+				continue;
+			}
+			if(Pagination.TOTALROWS.equals(name)){
+				continue;
+			}
+			
+			String[] vals = request.getParameterValues(name);
+			for (int i = 0; vals != null && i < vals.length; i++) {
+				sb.append(name);
+				sb.append("=");
+				sb.append(vals[i]);
+				sb.append("&");
+			}
+		}
+		if (sb.length() > 0) {
+			return sb.substring(0, sb.length() - 1);
+		}
+		return "";
 	}
 }

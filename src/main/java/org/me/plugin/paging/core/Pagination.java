@@ -9,7 +9,6 @@ public class Pagination implements Serializable {
 	public static final String STARTINDEX = "startIndex";
 	public static final String NUMPERPAGE = "numPerPage";
 	public static final String TOTALROWS = "totalRows";
-	public static final String PAGINATION = "pagination";
 	private int numPerPage = DefaultPageingConfig.numPerPage;//每页数
 	private int startIndex;//开始数
 	private int totalRows;//总行数

@@ -5,6 +5,7 @@
 <title>${cmsInfo.title}</title>
 <meta charset="utf-8" />
 <%@ include file="../../init/cssInit.jsp" %>
+<link href="<%=basePath%>/plugins/pagination/pagination.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	<table class="table">
@@ -43,7 +44,8 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<pg:defaultPaging/>
+	<pg:defaultPaging url="${url}" totalRows="${totalRows}" numPerPage="${numPerPage}" startIndex="${startIndex}"/>
+	${totalRows}==${numPerPage}==${startIndex}
 </body>
 <script type="text/javascript" src="<%=basePath%>/plugins/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
